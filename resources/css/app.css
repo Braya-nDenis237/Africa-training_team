@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scroll-right {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.animate-scroll-left {
+    animation: scroll-left 60s linear infinite;
+}
+
+.animate-scroll-right {
+    animation: scroll-right 60s linear infinite;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeUp {
+    animation: fadeUp 0.9s ease forwards;
+}
+
+.font-editorial {
+    font-family: "Playfair Display", serif;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.2s ease forwards;
+}
+
+.dropcap::first-letter {
+    font-size: 4rem;
+    font-weight: 800;
+    float: left;
+    line-height: 0.85;
+    margin-right: 0.6rem;
+    color: #166534; /* green-800 */
+}
+
+.dropcap::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.4rem;
+    width: 4px;
+    height: 2.8rem;
+    background: linear-gradient(to bottom, #166534, #22c55e);
+    border-radius: 2px;
+}
+
+@keyframes fadeInContent {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInContent {
+    animation: fadeInContent 0.6s ease forwards;
+}
