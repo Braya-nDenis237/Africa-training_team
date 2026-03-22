@@ -107,7 +107,7 @@ export default function Footer() {
                                     placeholder="Adresse email"
                                     className="flex-1 px-5 py-3 text-gray-800 outline-none max-tx:pr-0"
                                 />
-                                <button className="bg-green-500 px-6 text-white font-semibold hover:bg-green-600 transition max-tx:pl-2">
+                                <button className="bg-gradient-to-r from-green-400 to-teal-400 px-6 text-white font-semibold hover:bg-green-600 transition max-tx:pl-2">
                                     S'abonner
                                 </button>
                             </div>

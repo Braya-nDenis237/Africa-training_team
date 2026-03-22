@@ -11,14 +11,31 @@ export default function Edit({ article }) {
         article.image ? `/storage/${article.image}` : null,
     );
 
+    const getType = (url) => {
+        if (!url) return null;
+
+        if (url.match(/\.(mp4|webm|ogg)$/i)) return "video";
+        if (url.match(/\.pdf$/i)) return "pdf";
+
+        return null;
+    };
+    
+    const [previewVideo, setPreviewVideo] = useState(
+        article.file ? `/storage/${article.file}` : null,
+    );
+    const [type, setType] = useState(getType(article.file));
+
     const { data, setData, post, processing, errors } = useForm({
         title: article.title || "",
         content: article.content || "",
         type: article.type || "article",
         image: null,
+        file: null,
+        file_type: article.file_type,
         meta_title: article.meta_title || "",
         meta_description: article.meta_description || "",
         meta_keywords: article.meta_keywords || "",
+        video_url: article.video_url || "",
         status: article.status || "draft",
         _method: "put",
     });
@@ -146,7 +163,8 @@ export default function Edit({ article }) {
                             onChange={(e) => {
                                 const file = e.target.files[0];
                                 setData("image", file);
-                                setPreview(URL.createObjectURL(file));
+                                const url = URL.createObjectURL(file);
+                                setPreview(url);
                             }}
                             className="w-full border rounded p-3"
                         />
@@ -157,6 +175,59 @@ export default function Edit({ article }) {
                                 className="mt-4 w-64 rounded shadow"
                             />
                         )}
+                    </div>
+
+                    <div>
+                        <label className="block mb-2 font-semibold">
+                            Fichier (PDF, Word, PPT, MP4...)
+                        </label>
+
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+                                if (!file) return;
+
+                                const url = URL.createObjectURL(file);
+                                setPreviewVideo(url);
+
+                                setData("file", file);
+
+                                if (file.type.startsWith("video"))
+                                    setType("video");
+                                else if (file.type === "application/pdf")
+                                    setType("pdf");
+                                className = "w-full border rounded p-3";
+                            }}
+                        />
+                        {type === "video" && (
+                            <video
+                                src={previewVideo}
+                                controls
+                                className="mt-4 w-64 rounded shadow"
+                            />
+                        )}
+                        {type === "pdf" && (
+                            <iframe
+                                src={previewVideo}
+                                className="mt-4 w-64 rounded shadow"
+                            />
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="block mb-2 font-semibold">
+                            Lien vidéo (YouTube)
+                        </label>
+
+                        <input
+                            type="text"
+                            value={data.video_url}
+                            onChange={(e) =>
+                                setData("video_url", e.target.value)
+                            }
+                            className="w-full border rounded p-3"
+                        />
                     </div>
 
                     <div className="flex gap-4">

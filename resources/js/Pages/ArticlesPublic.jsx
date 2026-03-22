@@ -1,6 +1,6 @@
 import PublicLayout from "@/Layouts/PublicLayout";
 import { useEffect, useRef, useState } from "react";
-import { usePage, Link } from "@inertiajs/react";
+import { usePage, Link, router } from "@inertiajs/react";
 
 export default function ArticlesPublic() {
     const { posts } = usePage().props;
@@ -21,9 +21,16 @@ export default function ArticlesPublic() {
     return (
         <PublicLayout>
             {/* HERO PREMIUM */}
-            <section className="relative pt-32 pb-2 px-6 overflow-hidden bg-gradient-to-br from-green-900 via-emerald-700 to-green-500">
+            <section
+                className="relative pt-32 pb-2 px-6 overflow-hidden bg-green-500/60"
+                style={{
+                    backgroundImage: "url('/images/hero.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
                 {/* overlay blur */}
-                <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+                {/* <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div> */}
 
                 <div className="relative max-w-6xl mx-auto text-center text-white">
                     <h1 className="text-3xl font-bold mb-10">
@@ -43,6 +50,18 @@ export default function ArticlesPublic() {
                         <span className="text-green-400 ">Articles</span> &
                         Actualités
                     </h2> */}
+                    {/* <input
+                        type="text"
+                        placeholder="Rechercher..."
+                        value={filters.search || ""}
+                        onChange={(e) =>
+                            router.get(
+                                "/articles",
+                                { search: e.target.value },
+                                { preserveState: true },
+                            )
+                        }
+                    /> */}
 
                     <div
                         onMouseEnter={() => setIsHovered(true)}
@@ -52,7 +71,7 @@ export default function ArticlesPublic() {
                         {posts.map((post, index) => {
                             let position = index - currentIndex;
 
-                            // 🔥 Correction circulaire
+                            //  Correction circulaire
                             if (position > posts.length / 2) {
                                 position -= posts.length;
                             }
@@ -83,7 +102,7 @@ export default function ArticlesPublic() {
                                             "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
                                     }}
                                 >
-                                    <div className="w-[360px] bg-white rounded-2xl shadow-xl">
+                                    <div className="w-[310px] tx:w-[360px] bg-white rounded-2xl shadow-xl">
                                         {post.image && (
                                             <img
                                                 src={`/storage/${post.image}`}

@@ -29,6 +29,7 @@ export default {
             ta: "500px",
             to: "960px",
             da: "450px",
+            hy: '805px',
         },
     },
 

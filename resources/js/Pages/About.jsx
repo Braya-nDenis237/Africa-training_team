@@ -1,4 +1,5 @@
 import PublicLayout from "@/Layouts/PublicLayout";
+import { Head } from "@inertiajs/react";
 
 const founders = [
     {
@@ -34,27 +35,99 @@ const founders = [
 export default function About() {
     return (
         <PublicLayout>
+            <Head title="About" />
             {/* HERO PREMIUM */}
-            <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-br from-green-900 via-emerald-700 to-green-500">
-                {/* overlay blur */}
-                <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+            <section
+                className="relative pt-24 pb-4 px-6 bg-green-500/60 "
+                style={{
+                    backgroundImage: "url('/images/hero.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
+                {/* Overlay gradient premium */}
+                {/* <div className="absolute inset-0 bg-green-400/60  text-white px-4 py-1 rounded-lg"></div> */}
 
                 <div className="relative max-w-6xl mx-auto text-center text-white">
-                    <h1 className="text-5xl font-bold mb-6 tracking-tight">
-                        Qui sommes-nous ?
-                    </h1>
+                    <h2 className="text-3xl md:text-5xl font-bold">
+                        Qui sommes-{" "}
+                        <span className="bg-gradient-to-r from-green-400 to-teal-400 text-white px-4 py-1 rounded-lg">
+                            nous
+                        </span>{" "}
+                        ?
+                    </h2>
 
-                    <p className="text-xl max-w-3xl mx-auto text-white/90 leading-relaxed">
+                    {/* <p className="text-xl max-w-3xl mx-auto text-white/90 leading-relaxed">
                         Africa Training Team accompagne les professionnels,
                         institutions et entreprises dans le développement
                         stratégique des compétences et du leadership en Afrique.
-                    </p>
+                    </p> */}
+                </div>
+            </section>
+
+            {/* presentation */}
+            <section className="md:px-6">
+                <div className="mx-auto text-center">
+                    <h2
+                        className="text-xl md:text-3xl font-bold mb-6 bg-green-500/60 text-white px-4 py-1 rounded-b-lg max-w-sm mx-auto"
+                        style={{
+                            backgroundImage: "url('/images/hero.png')",
+                            // backgroundSize: "cover",
+                            // backgroundPosition: "center",
+                        }}
+                    >
+                        Présentation Institutionnelle D’ATT
+                    </h2>
+                    <div className="prose prose-p:m-2 prose-sm md:prose-lg max-w-none lg:max-w-6xl prose-headings:font-bold animate-fadeInContent mx-auto">
+                        {/* <p className="dropcap relative pl-6">
+                            A
+                        </p> */}
+                        <p className="font-bold">
+                            Africa Training Team (ATT) est un cabinet
+                            d’expertise en sécurité, défense et planification
+                            opérationnelle constitué :
+                        </p>
+                        <div className="grid grid-flow-row justify-items-start">
+                            <p>
+                                • D’officiers supérieurs à la retraite brevetés
+                                EMS2
+                            </p>
+                            <p>• D’experts africains associés</p>
+                            <p>
+                                • D’officiers supérieurs en activité dans des
+                                institutions d’enseignement militaire supérieur
+                                ATT intervient dans quatre domaines :
+                            </p>
+                            <p>
+                                • Enseignement stratégique et opératif et
+                                appropriation
+                            </p>
+                            <p>• Entraînement des États-Majors</p>
+                            <p>• Études opérationnelles</p>
+                            <p>
+                                • Conseil stratégique Notre expérience inclut :
+                            </p>
+                            <p>
+                                • Planification d’exercices nationaux et
+                                multinationaux
+                            </p>
+                            <p>
+                                • Rédaction de CONOPS/OPLAN stratégiques et
+                                opératifs
+                            </p>
+                            <p>• Conception de curricula EMS2 adaptés </p>
+                            <p>• Réforme pédagogique d’écoles de guerre</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             {/* FONDATEURS GLASSMORPHISM */}
-            <section className="py-28 px-6 bg-gradient-to-b from-white to-gray-100">
+            <section className="py-2 md:py-20 px-6 bg-gradient-to-b from-white to-gray-100">
                 <div className="max-w-6xl mx-auto">
+                    <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-teal-400 text-white px-4 py-1 rounded-lg max-w-48 mx-auto">
+                        Fondateurs
+                    </h2>
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
                         {founders.map((founder, index) => (
                             <div

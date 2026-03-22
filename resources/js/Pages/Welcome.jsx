@@ -1,6 +1,6 @@
 import PublicLayout from "@/Layouts/PublicLayout";
 import { useEffect, useRef, useState } from "react";
-import { usePage, Link } from "@inertiajs/react";
+import { usePage, Link, Head } from "@inertiajs/react";
 import activites from "@/data/activites";
 
 export default function Welcome() {
@@ -62,9 +62,10 @@ export default function Welcome() {
 
     return (
         <PublicLayout>
+            <Head title="Welcome" />
             {/* HERO SECTION */}
             <section
-                className="relative min-h-[40vh] nav:min-h-[40vh] flex items-center"
+                className="relative min-h-[40vh] nav:min-h-[40vh] flex items-center bg-green-500/60"
                 style={{
                     backgroundImage: "url('/images/hero.png')",
                     backgroundSize: "cover",
@@ -72,10 +73,10 @@ export default function Welcome() {
                 }}
             >
                 {/* Overlay gradient premium */}
-                <div className="absolute inset-0 bg-gradient-to-r from-green-700/80 via-green-600/70 to-green-500/60"></div>
+                {/* <div className="absolute inset-0 bg-green-400/60"></div> */}
 
                 {/* Contenu */}
-                <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-20 text-white">
+                <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-20 text-white mb-2">
                     <div className="max-w-4xl">
                         <h1 className="text-3xl ty:text-2xl tx:text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-6">
                             Équipe{" "}
@@ -85,7 +86,7 @@ export default function Welcome() {
                             Afrique
                         </h1>
 
-                        <p className="text-base sm:text-lg md:text-xl opacity-95 mb-8 leading-relaxed">
+                        <p className="text-base sm:text-lg md:text-xl opacity-95 mb-4 leading-relaxed">
                             Africanisation des réponses sécuritaires par l'appui
                             à la Formation et à l'Entrainement.
                         </p>
@@ -107,14 +108,16 @@ export default function Welcome() {
             <section className="py-2 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold mb-10">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">Articles</span> &
-                        Actualités
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">
+                            Articles
+                        </span>{" "}
+                        & Actualités
                     </h2>
 
                     <div
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
-                        className="relative h-[420px] flex items-center justify-center overflow-visible"
+                        className="relative h-[450px] flex items-center justify-center overflow-visible"
                     >
                         {posts.map((post, index) => {
                             let position = index - currentIndex;
@@ -150,7 +153,7 @@ export default function Welcome() {
                                             "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
                                     }}
                                 >
-                                    <div className="w-[360px] bg-white rounded-2xl shadow-xl">
+                                    <div className="w-[310px] tx:w-[360px] bg-white rounded-2xl shadow-xl">
                                         {post.image && (
                                             <img
                                                 src={`/storage/${post.image}`}
@@ -235,7 +238,9 @@ export default function Welcome() {
                     >
                         <h2 className="text-4xl md:text-5xl font-bold leading-tight text-gray-800/90">
                             Africanisation des réponses{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">sécuritaires</span>{" "}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">
+                                sécuritaires
+                            </span>{" "}
                             par l'appui à la Formation et à l'Entrainement
                         </h2>
 
@@ -297,7 +302,7 @@ export default function Welcome() {
 
                 <div className="relative max-w-5xl mx-auto px-6 text-center">
                     <h2
-                        className={`text-4xl md:text-5xl font-bold mb-10 transition-all duration-1000 ${
+                        className={`text-3xl md:text-5xl font-bold mb-10 transition-all duration-1000 ${
                             aboutVisible
                                 ? "opacity-100 translate-y-0"
                                 : "opacity-0 translate-y-10"
@@ -334,7 +339,9 @@ export default function Welcome() {
                 <div className="max-w-7xl mx-auto px-6">
                     {/* TITRE */}
                     <h2 className="text-4xl font-bold text-center mb-20">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">Domaines</span>{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">
+                            Domaines
+                        </span>{" "}
                         d'action
                     </h2>
 
@@ -382,7 +389,10 @@ export default function Welcome() {
 
                     {/* PÔLES */}
                     <h2 className="text-4xl font-bold text-center mb-6">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">Pôles</span> d'activité
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">
+                            Pôles
+                        </span>{" "}
+                        d'activité
                     </h2>
 
                     <div className="flex lg:flex-row flex-col lg:mt-10 mt-6">
@@ -402,7 +412,7 @@ export default function Welcome() {
                         ].map((pole, index) => (
                             <div
                                 key={index}
-                                className="flex flex-1 p-10 rounded-2xl"
+                                className="flex flex-1 pt-10 rounded-2xl"
                             >
                                 <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-teal-400 text-white rounded-full flex items-center justify-center mb-6 font-bold mr-5 p-5">
                                     {index + 1}
@@ -425,7 +435,10 @@ export default function Welcome() {
             <section className="py-12 bg-white overflow-hidden">
                 <div className="mx-auto text-center">
                     <h2 className="text-4xl font-bold mb-10">
-                        Nos <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">câbles</span>
+                        Nos{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 ">
+                            câbles
+                        </span>
                     </h2>
 
                     {/* LIGNE 1 : TEXTES */}

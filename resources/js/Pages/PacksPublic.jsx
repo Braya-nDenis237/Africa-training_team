@@ -48,9 +48,16 @@ export default function PacksPublic() {
     return (
         <PublicLayout>
             {/* HERO PREMIUM */}
-            <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-br from-green-900 via-emerald-700 to-green-500">
+            <section
+                className="relative pt-28 pb-4 px-6 overflow-hidden bg-green-500/60"
+                style={{
+                    backgroundImage: "url('/images/hero.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
                 {/* overlay blur */}
-                <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+                {/* <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div> */}
 
                 <div className="relative max-w-6xl mx-auto text-center text-white">
                     <h1 className="text-5xl font-bold mb-6 tracking-tight">
@@ -62,7 +69,8 @@ export default function PacksPublic() {
                     </p>
                 </div>
             </section>
-            <div className="min-h-screen bg-gray-50 py-16 px-6">
+
+            <div className="bg-gray-50 py-14 px-6">
                 <div className="max-w-7xl mx-auto text-center px-4 sm:px-6">
                     {/* <h1 className="text-3xl sm:text-4xl font-bold mb-4">
                         Nos Packs

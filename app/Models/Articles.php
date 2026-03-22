@@ -21,6 +21,9 @@ class Articles extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
+        'file',
+        'file_type',
+        'video_url',
     ];
     public function author()
     {

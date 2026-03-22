@@ -396,11 +396,42 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
         "Nom: {$request->name}\nEmail: {$request->email}\n\n{$request->message}",
         function ($mail) use ($request) {
             $mail->to('direction@africa-trainingteam.com')
-                 ->subject($request->subject);
+                ->subject($request->subject);
         }
     );
 
     return back()->with('success', 'Message envoyé avec succès.');
 });
 
+/*
+|--------------------------------------------------------------------------
+| download 
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/download/{article}', [ArticleController::class, 'download'])
+    ->name('articles.download');
+
+/*
+|--------------------------------------------------------------------------
+| Recherche
+|--------------------------------------------------------------------------
+*/
+// Route::get('/articles', function (Request $request) {
+
+//     $query = Articles::query()->where('status', 'published');
+
+//     if ($request->search) {
+//         $query->where('title', 'like', "%{$request->search}%");
+//     }
+
+//     if ($request->type) {
+//         $query->where('type','like', "%{$request->type}%");
+//     }
+
+//     return Inertia::render('Admin/Articles/Index', [
+//         'articles' => $query->latest()->paginate(10),
+//         'filters' => $request->only(['search', 'type']),
+//     ]);
+// });
 require __DIR__ . '/auth.php';

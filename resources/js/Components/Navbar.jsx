@@ -44,7 +44,7 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            setScrolled(window.scrollY > 30);
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -76,7 +76,7 @@ export default function Navbar() {
                 ref={navRef}
                 className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
                     scrolled || mobileOpen
-                        ? "bg-white/90 backdrop-blur-md shadow-md text-gray-800"
+                        ? "bg-white/70 backdrop-blur-md shadow-md text-gray-800"
                         : "bg-transparent text-white"
                 }`}
             >

@@ -6,6 +6,8 @@ import { useState, useMemo } from "react";
 
 export default function Create() {
     const [preview, setPreview] = useState(null);
+    const [previewVideo, setPreviewVideo] = useState(null);
+    const [type, setType] = useState(null);
     const { data, setData, post, processing, errors } = useForm({
         title: "",
         content: "",
@@ -15,6 +17,9 @@ export default function Create() {
         meta_description: "",
         meta_keywords: "",
         status: "draft",
+        file: null,
+        file_type: null,
+        video_url: "",
     });
 
     const submit = (e) => {
@@ -91,7 +96,7 @@ export default function Create() {
                     <input type="hidden" name="status" value={data.status} />
                     <div>
                         <label className="block mb-2 font-semibold">
-                            Titre
+                            Titre *
                         </label>
                         <input
                             type="text"
@@ -150,7 +155,9 @@ export default function Create() {
 
                     {/* Type */}
                     <div>
-                        <label className="block mb-2 font-semibold">Type</label>
+                        <label className="block mb-2 font-semibold">
+                            Type *
+                        </label>
                         <select
                             value={data.type}
                             onChange={(e) => setData("type", e.target.value)}
@@ -164,7 +171,7 @@ export default function Create() {
                     {/* Contenu */}
                     <div>
                         <label className="block mb-2 font-semibold">
-                            Contenu
+                            Contenu *
                         </label>
                         <ReactQuill
                             key="editor"
@@ -207,6 +214,61 @@ export default function Create() {
                             </div>
                         )}
                     </div>
+
+                    <div>
+                        <label className="block mb-2 font-semibold">
+                            Fichier (PDF, Word, PPT, MP4...)
+                        </label>
+
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+                                if (!file) return;
+
+                                const url = URL.createObjectURL(file);
+                                setPreviewVideo(url);
+
+                                setData("file", file);
+
+                                if (file.type.startsWith("video"))
+                                    setType("video");
+                                else if (file.type === "application/pdf")
+                                    setType("pdf");
+                                className = "w-full border rounded p-3";
+                            }}
+                        />
+
+                        {type === "video" && (
+                            <video
+                                src={previewVideo}
+                                controls
+                                className="mt-4 w-64 rounded shadow"
+                            />
+                        )}
+                        {type === "pdf" && (
+                            <iframe
+                                src={previewVideo}
+                                className="mt-4 w-64 rounded shadow"
+                            />
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="block mb-2 font-semibold">
+                            Lien vidéo (YouTube)
+                        </label>
+
+                        <input
+                            type="text"
+                            value={data.video_url}
+                            onChange={(e) =>
+                                setData("video_url", e.target.value)
+                            }
+                            className="w-full border rounded p-3"
+                        />
+                    </div>
+
                     {/* Bouton */}
                     <div className="flex gap-4">
                         <button

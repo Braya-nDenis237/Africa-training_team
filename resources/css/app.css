@@ -110,3 +110,13 @@ body {
 .animate-fadeInContent {
     animation: fadeInContent 0.6s ease forwards;
 }
+
+/* cacher scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE */
+    scrollbar-width: none; /* Firefox */
+}

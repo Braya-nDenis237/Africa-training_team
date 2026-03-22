@@ -92,6 +92,7 @@ export default function Show({ article, related, tags = [] }) {
 
         setHeadings(extracted);
     }, [article.content]);
+    
     // Traitement du contenu pour ajouter des classes aux premiers paragraphes
     const processedContent = useMemo(() => {
         const parser = new DOMParser();
@@ -106,6 +107,27 @@ export default function Show({ article, related, tags = [] }) {
 
         return doc.body.innerHTML;
     }, [article.content]);
+
+    // const getEmbed = (url) => {
+    //     if (url.includes("youtube.com")) {
+    //         return url.replace("watch?v=", "embed/");
+    //     }
+    //     return url;
+    // };
+
+    // const isMP4 = (url) => {
+    //     return url?.endsWith(".mp4");
+    // };
+
+    const getType = (url) => {
+        if (!url) return null;
+
+        if (url.match(/\.(mp4|webm|ogg)$/i)) return "video";
+        if (url.match(/\.(pdf|odt|docx|odp|pptx)$/i)) return "pdf";
+
+        return null;
+    };
+    const [type] = useState(getType(article.file));
 
     return (
         <PublicLayout>
@@ -221,34 +243,6 @@ export default function Show({ article, related, tags = [] }) {
                 </div>
             )}
 
-            {headings.length > 0 && (
-                <div className="mb-16 p-6 bg-gray-50 rounded-xl border">
-                    <h3 className="font-bold mb-4 uppercase text-sm tracking-wider">
-                        Table des matières
-                    </h3>
-
-                    <ul className="space-y-2 text-sm">
-                        {headings.map((item) => (
-                            <li
-                                key={item.id}
-                                className={`${
-                                    item.level === "H3"
-                                        ? "ml-4 text-gray-600"
-                                        : ""
-                                }`}
-                            >
-                                <a
-                                    href={`#${item.id}`}
-                                    className="hover:text-green-700 transition"
-                                >
-                                    {item.text}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-
             {/* CONTENT */}
             <section className="py-20 bg-white">
                 <div className="max-w-3xl mx-auto px-6">
@@ -319,6 +313,60 @@ export default function Show({ article, related, tags = [] }) {
                         dangerouslySetInnerHTML={{ __html: processedContent }}
                     />
 
+                    {/* DROP CAP file */}
+                    {article.video_url && (
+                        <div className="mt-12">
+                            <h3 className="text-2xl font-bold mb-6">
+                                🎥 Lien Youtube :
+                            </h3>
+                            <div>
+                                <Link>{article.video_url}</Link>
+                            </div>
+
+                            {/* <div className="relative w-full pb-[56.25%] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300">
+                                {!isMP4(article.video_url) && (
+                                    <iframe
+                                        src={getEmbed(article.video_url)}
+                                        className="absolute top-0 left-0 w-full h-full"
+                                        loading="lazy"
+                                        allow="autoplay; fullscreen"
+                                        allowFullScreen
+                                        onError={() => {
+                                            window.open(
+                                                article.video_url,
+                                                "_blank",
+                                            );
+                                        }}
+                                    ></iframe>
+                                )}
+                            </div> */}
+                        </div>
+                    )}
+
+                    {/* VIDEO MP4 */}
+                    {type === "video" && (
+                        <div className="mt-12">
+                            <h3 className="text-2xl font-bold mb-6">
+                                🎥 Vidéo associée
+                            </h3>
+                            <div className="relative w-full pb-[56.25%] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300">
+                                <video
+                                    controls
+                                    className="absolute top-0 left-0 w-full h-full"
+                                >
+                                    <source
+                                        src={
+                                            article.file
+                                                ? `/storage/${article.file}`
+                                                : null
+                                        }
+                                        type="video/mp4"
+                                    />
+                                </video>
+                            </div>
+                        </div>
+                    )}
+
                     {/* CITATION STYLISÉE */}
                     <blockquote className="border-l-4 border-green-600 pl-6 my-12 italic text-lg text-gray-700">
                         "La transformation stratégique passe par la formation et
@@ -334,6 +382,20 @@ export default function Show({ article, related, tags = [] }) {
                             formation en sécurité et défense.
                         </p>
                     </div>
+
+                    <div className="flex gap-6 text-sm text-gray-500 mt-4 mb-3">
+                        <span>👁 {article.views} vues</span>
+                        <span>⬇ {article.downloads} téléchargements</span>
+                    </div>
+
+                    {type === "pdf" && (
+                        <a
+                            href={route("articles.download", article.id)}
+                            className="bg-green-600 text-white px-4 py-2 rounded"
+                        >
+                            Télécharger ({article.downloads})
+                        </a>
+                    )}
                 </div>
             </section>
 

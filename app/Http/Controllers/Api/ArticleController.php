@@ -40,6 +40,8 @@ class ArticleController extends Controller
             'content' => 'required|string',
             'type' => 'required|in:article,news',
             'image' => 'nullable|image|max:8192',
+            'file' => 'nullable|mimes:pdf,doc,docx,ppt,pptx,mp4|max:20000',
+            'video_url' => 'nullable|url',
         ]);
 
         $imagePath = null;
@@ -64,6 +66,17 @@ class ArticleController extends Controller
             $imagePath = "articles/$imageName";
         }
 
+        $filePath = null;
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+
+            $filePath = $file->store('articles/files', 'public');
+
+            $fileType = $file->getClientOriginalExtension();
+        }
+
         Articles::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
@@ -76,6 +89,9 @@ class ArticleController extends Controller
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'meta_keywords' => $request->meta_keywords,
+            'file' => $filePath ?? null,
+            'file_type' => $fileType ?? null,
+            'video_url' => $request->video_url,
         ]);
 
         return redirect()->route('admin.dashboard')
@@ -101,7 +117,8 @@ class ArticleController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'image' => 'nullable|image|max:4096',
+            // 'image' => 'nullable|image|max:4096',
+            'file' => 'nullable|mimes:pdf,doc,docx,ppt,pptx,mp4|max:20000',
         ]);
 
         $imagePath = $article->image; // on garde l’ancienne image par défaut
@@ -111,9 +128,9 @@ class ArticleController extends Controller
             //  Supprimer l’ancienne image si elle existe physiquement
             if (
                 $article->image &&
-                Storage::disk('public')->exists($article->image)
+                Storage::disk( 'public')->exists($article->image)
             ) {
-                Storage::disk('public')->delete($article->image);
+                Storage::disk( 'public')->delete($article->image);
             }
 
             $image = $request->file('image');
@@ -134,22 +151,44 @@ class ArticleController extends Controller
             $imagePath = "articles/$imageName";
         }
 
+        $filePath = $article->file;
+
+        if ($request->hasFile('file')) {
+
+            if (
+                $article->file &&
+                Storage::disk( 'public')->exists($article->file)
+            ) {
+                Storage::disk( 'public')->delete($article->file);
+            }
+
+            $file = $request->file('file');
+
+            $filePath = $file->store('articles/files', 'public');
+
+            $fileType = $file->getClientOriginalExtension();
+        }
+
         $article->update([
             'title' => $request->title,
             'content' => $request->content,
             'type' => $request->type,
             'status' => $request->status,
-            'image' => $imagePath,
+            'image' => $imagePath ?? null,
             'author_name' => 'Africa Training Team',
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'meta_keywords' => $request->meta_keywords,
+            'file' => $filePath ?? null,
+            'file_type' => $fileType ?? null,
+            'video_url' => $request->video_url,
         ]);
 
         return redirect()
             ->route('admin.articles.index')
             ->with('success', 'Article mis à jour');
     }
+
     //upload image for editor
     public function uploadEditorImage(Request $request)
     {
@@ -233,4 +272,23 @@ class ArticleController extends Controller
             ->route('admin.articles.index')
             ->with('success', 'Article repassé en brouillon');
     }
+    //download
+    public function download(Articles $article)
+    {
+        if (!auth()->check()) {
+            return redirect('/login');
+        }
+
+        // Exemple si abonnement requis
+        // if (!auth()->user()->hasActiveSubscription()) {
+        //     abort(403, "Abonnement requis");
+        // }
+
+        $article->increment('downloads');
+
+        return response()->download(
+            storage_path("app/public/" . $article->file)
+        );
+    }
+    //
 }

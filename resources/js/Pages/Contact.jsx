@@ -1,5 +1,4 @@
 import { useForm, Head } from "@inertiajs/react";
-import GuestLayout from "@/Layouts/GuestLayout";
 import PublicLayout from "@/Layouts/PublicLayout";
 
 export default function Contact() {
@@ -25,14 +24,14 @@ export default function Contact() {
 
                     {/* HERO */}
                     <section
-                        className="relative h-[40vh] pt-40 pb-16 bg-gray-100"
+                        className="relative h-[33vh] pt-28 bg-green-500/60"
                         style={{
                             backgroundImage: "url('/images/hero.png')",
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                         }}
                     >
-                        <div className="absolute inset-0 bg-gradient-to-r from-green-700/80 via-green-600/70 to-green-500/60"></div>
+                        {/* <div className="absolute inset-0 bg-gradient-to-r from-green-700/80 via-green-600/70 to-green-500/60"></div> */}
                         <div className=" relative max-w-6xl mx-auto px-6">
                             <h1 className="text-4xl font-bold mb-4 md:text-5xl text-black">
                                 Contactez-nous
@@ -46,7 +45,7 @@ export default function Contact() {
                     </section>
 
                     {/* SECTION CONTACT */}
-                    <section className="py-20 px-6 bg-gray-50">
+                    <section className="pb-20 pt-10 px-6 bg-gray-50">
                         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
                             {/* INFOS */}
                             <div className="space-y-8">
@@ -159,7 +158,7 @@ export default function Contact() {
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className="w-full bg-green-600 text-white py-4 rounded-full font-semibold hover:bg-green-700 transition duration-300 shadow-lg"
+                                        className="w-full bg-gradient-to-r from-green-400 to-teal-400 text-white py-4 rounded-full font-semibold hover:shadow-lg transition duration-300 "
                                     >
                                         Envoyer le message
                                     </button>
