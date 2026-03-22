@@ -1,6 +1,6 @@
 import PublicLayout from "@/Layouts/PublicLayout";
-import { useEffect, useRef, useState } from "react";
-import { usePage, Link, router } from "@inertiajs/react";
+import { useEffect, useState } from "react";
+import { usePage, Link, Head } from "@inertiajs/react";
 
 export default function ArticlesPublic() {
     const { posts } = usePage().props;
@@ -20,6 +20,7 @@ export default function ArticlesPublic() {
     }, [isHovered, posts.length]);
     return (
         <PublicLayout>
+            <Head title="Redactions" />
             {/* HERO PREMIUM */}
             <section
                 className="relative pt-32 pb-2 px-6 overflow-hidden bg-green-500/60"

@@ -42,7 +42,7 @@ export default function Packs() {
 
     return (
         <AuthenticatedLayout>
-            <Head title="Dashboard" />
+            <Head title="Dashboard|Packs" />
             <div className="min-h-screen bg-gray-50 py-16 px-6">
                 <div className="max-w-7xl mx-auto text-center px-4 sm:px-6">
                     <h1 className="text-3xl sm:text-4xl font-bold mb-4">Nos Packs</h1>

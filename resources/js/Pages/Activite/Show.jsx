@@ -3,6 +3,7 @@ import activites from "@/data/activites";
 import modules from "@/data/modules";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Head } from "@inertiajs/react";
 
 export default function Show({ slug }) {
     const activite = activites.find((a) => a.slug === slug);
@@ -22,6 +23,7 @@ export default function Show({ slug }) {
     };
     return (
         <PublicLayout>
+            <Head title={activite.slug} />
             <section
                 className="relative h-[40vh] flex items-center justify-center bg-green-500/60"
                 style={{

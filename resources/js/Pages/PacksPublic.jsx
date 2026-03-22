@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePage } from "@inertiajs/react";
-import { router } from "@inertiajs/react";
+import { router, Head } from "@inertiajs/react";
 import PublicLayout from "@/Layouts/PublicLayout";
 import Swal from "sweetalert2";
 
@@ -47,6 +47,7 @@ export default function PacksPublic() {
 
     return (
         <PublicLayout>
+            <Head title="Packs" />
             {/* HERO PREMIUM */}
             <section
                 className="relative pt-28 pb-4 px-6 overflow-hidden bg-green-500/60"

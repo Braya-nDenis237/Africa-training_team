@@ -36,7 +36,7 @@ export default function AdminDashboard({
     // console.log(conversionRate);
     return (
         <AdminLayout>
-            <Head title="Admin Dashboard" />
+            <Head title="Admin|Dashboard" />
 
             <div className="p-8">
                 <h1 className="text-2xl font-bold mb-8">Dashboard Admin</h1>
